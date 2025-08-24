@@ -1,0 +1,28 @@
+﻿namespace Udemy.Domain.Entities;
+
+public class User
+{
+    //Har bir foydalanuvchining unikal identifikatori.
+    public Guid Id { get; set; }
+
+    //Foydalanuvchining ismi.
+    public string FirstName { get; set; } = default!;
+
+    //Foydalanuvchining familiyasi.
+    public string LastName { get; set; } = default!;
+
+    //Foydalanuvchining foydalanuvchi nomi (username).
+    public string UserName { get; set; } = default!;
+
+    //Foydalanuvchining elektron pochta manzili.
+    public string Email { get; set; } = default!;
+
+    //Foydalanuvchining parol hash qiymati.
+    public string PasswordHash { get; set; } = default!;
+
+    //Foydalanuvchi yaratgan kurslar (Instructor bo‘lsa).
+    public ICollection<Course> CreatedCourses { get; set; }
+
+    //Foydalanuvchi ro‘yxatdan o‘tgan kurslar (Student bo‘lsa).
+    public ICollection<UserCourse> RegisteredCourses { get; set; }
+}
