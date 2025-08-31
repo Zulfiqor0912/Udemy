@@ -4,3 +4,8 @@ GET {{Udemy.API_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+GET {{Udemy.API_HostAddress}}/api/course/
+Accept: application/json
+
+###
