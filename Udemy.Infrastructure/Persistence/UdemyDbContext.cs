@@ -1,10 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 using Udemy.Domain.Entities;
 
 namespace Udemy.Infrastructure.Persistence;
 
-public class UdemyDbContext : DbContext
+public class UdemyDbContext(DbContextOptions<UdemyDbContext> options) : DbContext(options)
 {
+
     internal DbSet<Content> Contents { get; set; }
     internal DbSet<Comment> Comments { get; set; }
     internal DbSet<Course> Courses { get; set; }
@@ -17,7 +19,7 @@ public class UdemyDbContext : DbContext
 
     //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     //{
-    //    optionsBuilder.UseSqlServer("Server=localhost,1433;Database=UdemyDb;User Id=sa;Password=Your_password123;");
+    //    optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=UdemyDb;Trusted_Connection=True;");
     //}
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -27,8 +29,77 @@ public class UdemyDbContext : DbContext
         modelBuilder.Entity<UserCourse>()
             .HasKey(uc => new { uc.UserId, uc.CourseId });
 
-        //modelBuilder.Entity<UserCourse>()
-        //    .HasOne(uc => uc.User)
-        //    .WithMany(u => )
+        modelBuilder.Entity<UserCourse>()
+            .HasOne(uc => uc.User)
+            .WithMany(u => u.RegisteredCourses)
+            .HasForeignKey(uc => uc.UserId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<UserCourse>()
+            .HasOne(uc => uc.Course)
+            .WithMany(c => c.UserCourses)
+            .HasForeignKey(uc => uc.CourseId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+
+        modelBuilder.Entity<Comment>()
+            .HasOne(c => c.User)
+            .WithMany(u => u.Comments)
+            .HasForeignKey(c => c.UserId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Comment>()
+            .HasOne(c => c.Course)
+            .WithMany(c => c.Comments)
+            .HasForeignKey(c => c.CourseId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Module>()
+            .HasOne(m => m.Course)
+            .WithMany(c => c.Modules)
+            .HasForeignKey(m => m.CourseId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Content>()
+            .HasOne(c => c.Module)
+            .WithMany(m => m.Contents)
+            .HasForeignKey(c => c.ModuleId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Rating>()
+            .HasOne(r => r.User)
+            .WithMany(u => u.Ratings)
+            .HasForeignKey(r => r.UserId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Rating>()
+            .HasOne(r => r.Course)
+            .WithMany(c => c.Ratings)
+            .HasForeignKey(r => r.CourseId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<CourseTag>()
+            .HasOne(ct => ct.Course)
+            .WithMany(c => c.CourseTags)
+            .HasForeignKey(ct => ct.CourseId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Like>()
+            .HasKey(l => new { l.UserId, l.CourseId });
+
+        modelBuilder.Entity<Like>()
+            .HasOne(l => l.Course)
+            .WithMany(c => c.Likes)
+            .HasForeignKey(l => l.CourseId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Like>()
+            .HasOne(l => l.User)
+            .WithMany(u => u.Likes)
+            .HasForeignKey(l => l.UserId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+
+
     }
 }

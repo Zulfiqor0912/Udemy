@@ -11,9 +11,6 @@ public class Course
     //Kurs tavsifi, mazmuni.
     public string Description { get; set; } = default!;
 
-    //Kursga berilgan like soni.
-    public int Likes { get; set; }
-
     //Kursga yozilgan kommentlar ro‘yxati.
     public ICollection<Comment> Comments { get; set; }
 
@@ -40,4 +37,12 @@ public class Course
 
     //Kursning narxi (masalan: 49.99$).
     public decimal Price { get; set; }
+
+    public ICollection<UserCourse> UserCourses { get; set; }
+
+    //Kursga tegishli CourseTag obyekti ro‘yxati.
+    public ICollection<CourseTag> CourseTags { get; set; }
+
+    //Kursga tegishli Likelar obyekti ro‘yxati.
+    public ICollection<Like> Likes { get; set; }
 }

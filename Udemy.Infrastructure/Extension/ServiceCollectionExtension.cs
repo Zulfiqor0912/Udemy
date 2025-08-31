@@ -7,7 +7,7 @@ namespace Udemy.Infrastructure.Extension;
 
 public static class ServiceCollectionExtension
 {
-    public static void AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
+    public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         var connectionString = configuration.GetConnectionString("UdemyDb");
         services

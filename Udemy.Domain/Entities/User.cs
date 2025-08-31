@@ -25,4 +25,13 @@ public class User
 
     //Foydalanuvchi ro‘yxatdan o‘tgan kurslar (Student bo‘lsa).
     public ICollection<UserCourse> RegisteredCourses { get; set; }
+
+    //Foydalanuvchiga bildirilgan Commentlar
+    public ICollection<Comment> Comments { get; set; }
+    //Foydalanuvchiga berilgan Ratinglar
+    public ICollection<Rating> Ratings { get; set; }
+
+    //Foydalanuvchiga berilgan Likelar
+    public ICollection<Like> Likes { get; set; }
+
 }
