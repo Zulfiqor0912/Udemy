@@ -6,11 +6,23 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Udemy.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class INit : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Tags",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tags", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
@@ -81,14 +93,12 @@ namespace Udemy.Infrastructure.Migrations
                 name: "CourseTags",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Tag = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CourseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CourseId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    TagId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CourseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CourseTags", x => x.Id);
+                    table.PrimaryKey("PK_CourseTags", x => new { x.CourseId, x.TagId });
                     table.ForeignKey(
                         name: "FK_CourseTags_Courses_CourseId",
                         column: x => x.CourseId,
@@ -96,10 +106,11 @@ namespace Udemy.Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_CourseTags_Courses_CourseId1",
-                        column: x => x.CourseId1,
-                        principalTable: "Courses",
-                        principalColumn: "Id");
+                        name: "FK_CourseTags_Tags_TagId",
+                        column: x => x.TagId,
+                        principalTable: "Tags",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -237,14 +248,9 @@ namespace Udemy.Infrastructure.Migrations
                 column: "CreatedById");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CourseTags_CourseId",
+                name: "IX_CourseTags_TagId",
                 table: "CourseTags",
-                column: "CourseId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CourseTags_CourseId1",
-                table: "CourseTags",
-                column: "CourseId1");
+                column: "TagId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Likes_CourseId",
@@ -295,6 +301,9 @@ namespace Udemy.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Modules");
+
+            migrationBuilder.DropTable(
+                name: "Tags");
 
             migrationBuilder.DropTable(
                 name: "Courses");

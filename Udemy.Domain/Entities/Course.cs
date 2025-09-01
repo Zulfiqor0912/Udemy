@@ -26,9 +26,6 @@ public class Course
     //Kursga yozilgan studentlar soni.
     public int NumberOfStudents { get; set; }
 
-    //Kursga teglar (taglar) qo‘shish (masalan: “Backend”, “C#”).
-    public ICollection<CourseTag> Tags { get; set; }
-
     //Kursni yaratgan foydalanuvchining IDsi.
     public Guid CreatedById { get; set; }
 

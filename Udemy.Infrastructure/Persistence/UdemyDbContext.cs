@@ -10,6 +10,7 @@ public class UdemyDbContext(DbContextOptions<UdemyDbContext> options) : DbContex
     internal DbSet<Content> Contents { get; set; }
     internal DbSet<Comment> Comments { get; set; }
     internal DbSet<Course> Courses { get; set; }
+    internal DbSet<Tag> Tags { get; set; }
     internal DbSet<CourseTag> CourseTags { get; set; }
     internal DbSet<Like> Likes { get; set; }
     internal DbSet<Module> Modules { get; set; }
@@ -20,7 +21,7 @@ public class UdemyDbContext(DbContextOptions<UdemyDbContext> options) : DbContex
     //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     //{
     //    optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=UdemyDb;Trusted_Connection=True;");
-    //}
+    //} dotnet ef migrations add "AddSeeder_ForTags2" --project .\Udemy.Infrastructure\ --startup-project .\Udemy.API\
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -79,9 +80,18 @@ public class UdemyDbContext(DbContextOptions<UdemyDbContext> options) : DbContex
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<CourseTag>()
+            .HasKey(ct => new { ct.CourseId, ct.TagId });
+
+        modelBuilder.Entity<CourseTag>()
             .HasOne(ct => ct.Course)
             .WithMany(c => c.CourseTags)
             .HasForeignKey(ct => ct.CourseId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<CourseTag>()
+            .HasOne(ct => ct.Tag)
+            .WithMany(t => t.CourseTags)
+            .HasForeignKey(ct => ct.TagId)
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<Like>()

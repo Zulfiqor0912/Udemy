@@ -111,25 +111,15 @@ namespace Udemy.Infrastructure.Migrations
 
             modelBuilder.Entity("Udemy.Domain.Entities.CourseTag", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("CourseId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CourseId1")
+                    b.Property<Guid>("TagId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Tag")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.HasKey("CourseId", "TagId");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("CourseId");
-
-                    b.HasIndex("CourseId1");
+                    b.HasIndex("TagId");
 
                     b.ToTable("CourseTags");
                 });
@@ -191,6 +181,21 @@ namespace Udemy.Infrastructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Ratings");
+                });
+
+            modelBuilder.Entity("Udemy.Domain.Entities.Tag", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tags");
                 });
 
             modelBuilder.Entity("Udemy.Domain.Entities.User", b =>
@@ -288,11 +293,15 @@ namespace Udemy.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Udemy.Domain.Entities.Course", null)
-                        .WithMany("Tags")
-                        .HasForeignKey("CourseId1");
+                    b.HasOne("Udemy.Domain.Entities.Tag", "Tag")
+                        .WithMany("CourseTags")
+                        .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Course");
+
+                    b.Navigation("Tag");
                 });
 
             modelBuilder.Entity("Udemy.Domain.Entities.Like", b =>
@@ -375,14 +384,17 @@ namespace Udemy.Infrastructure.Migrations
 
                     b.Navigation("Ratings");
 
-                    b.Navigation("Tags");
-
                     b.Navigation("UserCourses");
                 });
 
             modelBuilder.Entity("Udemy.Domain.Entities.Module", b =>
                 {
                     b.Navigation("Contents");
+                });
+
+            modelBuilder.Entity("Udemy.Domain.Entities.Tag", b =>
+                {
+                    b.Navigation("CourseTags");
                 });
 
             modelBuilder.Entity("Udemy.Domain.Entities.User", b =>
