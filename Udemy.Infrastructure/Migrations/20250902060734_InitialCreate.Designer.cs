@@ -12,8 +12,8 @@ using Udemy.Infrastructure.Persistence;
 namespace Udemy.Infrastructure.Migrations
 {
     [DbContext(typeof(UdemyDbContext))]
-    [Migration("20250901200834_Init")]
-    partial class Init
+    [Migration("20250902060734_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

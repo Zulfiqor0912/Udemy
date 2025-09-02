@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Udemy.Domain.Repositories;
 using Udemy.Infrastructure.Persistence;
 using Udemy.Infrastructure.Repositories;
+using Udemy.Infrastructure.Seeders;
 
 namespace Udemy.Infrastructure.Extension;
 
@@ -18,5 +19,6 @@ public static class ServiceCollectionExtension
                 .EnableSensitiveDataLogging());
 
         services.AddScoped<ICourseRepository, CourseRepository>();
+        services.AddScoped<IUdemySeeder, UdemySeeder>();
     }
 }
