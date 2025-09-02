@@ -1,6 +1,6 @@
 ﻿using Udemy.Domain.Entities;
 
-namespace Udemy.Application;
+namespace Udemy.Application.Services;
 
 public interface ICourseService
 {

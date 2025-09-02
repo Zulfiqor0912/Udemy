@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Udemy.Application.Services;
 using Udemy.Domain.Entities;
 using Udemy.Domain.Repositories;
 

@@ -6,7 +6,7 @@ using Udemy.Application.Courses.Queries.GetAll;
 namespace Udemy.API.Controllers;
 
 [ApiController]
-[Route("api/course/[controller]")]
+[Route("api/course")]
 public class CourseController(IMediator mediator) : ControllerBase
 {
     [HttpGet]

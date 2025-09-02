@@ -19,6 +19,7 @@ public static class ServiceCollectionExtension
                 .EnableSensitiveDataLogging());
 
         services.AddScoped<ICourseRepository, CourseRepository>();
+        services.AddScoped<ITagRepository, TagRepository>();
         services.AddScoped<IUdemySeeder, UdemySeeder>();
     }
 }

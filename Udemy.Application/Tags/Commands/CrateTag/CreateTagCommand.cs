@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Udemy.Application.CourseTags.Commands.CreateTag;
+namespace Udemy.Application.Tags.Commands.CrateTag;
 
 public class CreateTagCommand : IRequest<bool>
 {

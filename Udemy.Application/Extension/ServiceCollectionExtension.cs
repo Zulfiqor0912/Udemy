@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Udemy.Application.Courses;
+using Udemy.Application.Services;
 using Udemy.Domain.Repositories;
 
 namespace Udemy.Application.Extension;
