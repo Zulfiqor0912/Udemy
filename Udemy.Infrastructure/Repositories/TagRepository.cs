@@ -20,6 +20,7 @@ public class TagRepository(UdemyDbContext dbContext) : ITagRepository
         if (tag is null) return false;
         else {
             dbContext.Tags.Remove(tag);
+            await dbContext.SaveChangesAsync();
             return true;
         }
     }

@@ -4,6 +4,7 @@ using Udemy.Application.Tags.Commands.CrateTag;
 using Udemy.Application.Tags.Commands.DeleteTag;
 using Udemy.Application.Tags.Dto;
 using Udemy.Application.Tags.Queries.GetAll;
+using Udemy.Application.Tags.Queries.GetTagById;
 using Udemy.Domain.Entities;
 
 namespace Udemy.API.Controllers;
@@ -26,10 +27,17 @@ public class TagController(IMediator mediator) : ControllerBase
         return Ok(tags);
     }
 
-    [HttpDelete("{name}")]
+    [HttpDelete("by-name/{name}")]
     public async Task<IActionResult> DeleteTagByName(string name)
     {
         var result = await mediator.Send(new DeleteTagCommand(name));
+        return Ok(result);
+    }
+
+    [HttpGet("by-name/{name}")]
+    public async Task<IActionResult> GetTagByName(string name)
+    {
+        var result = await mediator.Send(new GetTagByNameQuery(name));
         return Ok(result);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Udemy.Application.Courses.Commands.CreateCourse;
 
-public class CreateCourseCommand : IRequest<bool>
+public class CreateCourseCommand : IRequest
 {
     //Kurs nomi (masalan: “C# asoslari”).
     public string Title { get; set; } = default!;
