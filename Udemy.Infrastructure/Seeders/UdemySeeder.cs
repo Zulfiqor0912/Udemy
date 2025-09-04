@@ -3,7 +3,9 @@ using Udemy.Infrastructure.Persistence;
 
 namespace Udemy.Infrastructure.Seeders;
 
-internal class UdemySeeder(UdemyDbContext dbContext) : IUdemySeeder
+internal class UdemySeeder(
+    UdemyDbContext dbContext
+    ) : IUdemySeeder
 {
     public async Task Seed()
     {
@@ -15,6 +17,11 @@ internal class UdemySeeder(UdemyDbContext dbContext) : IUdemySeeder
                 await dbContext.Tags.AddRangeAsync(tags);
                 await dbContext.SaveChangesAsync();
             }
+        }
+        if (!dbContext.Users.Any())
+        {
+            var users = new List<User>
+            
         }
     }
 
@@ -187,4 +194,5 @@ internal class UdemySeeder(UdemyDbContext dbContext) : IUdemySeeder
         };
         return tags;
     }   
+    //private IEnumerable<User> GetUsers
 }

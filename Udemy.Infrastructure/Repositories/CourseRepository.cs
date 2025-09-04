@@ -9,8 +9,16 @@ public class CourseRepository(UdemyDbContext dbContext) : ICourseRepository
 {
     public async Task CreateCourse(Course course)
     {
-        await dbContext.Courses.AddAsync(course);
-        await dbContext.SaveChangesAsync();
+        try
+        {
+            await dbContext.Courses.AddAsync(course);
+            await dbContext.SaveChangesAsync();
+        } catch (Exception ex)
+        {
+            // Log the exception (you can use a logging framework here)
+            Console.WriteLine($"An error occurred while creating the course: {ex.Message}");
+            throw; // Re-throw the exception after logging it
+        }
     }
 
     public async Task DeleteCourse(Course course)
