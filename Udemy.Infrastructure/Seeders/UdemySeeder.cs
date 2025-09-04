@@ -1,4 +1,5 @@
-﻿using Udemy.Domain.Entities;
+﻿using Microsoft.Identity.Client;
+using Udemy.Domain.Entities;
 using Udemy.Infrastructure.Persistence;
 
 namespace Udemy.Infrastructure.Seeders;
@@ -20,8 +21,9 @@ internal class UdemySeeder(
         }
         if (!dbContext.Users.Any())
         {
-            var users = new List<User>
-            
+            var user = GetUser();
+            await dbContext.Users.AddAsync(user);
+            await dbContext.SaveChangesAsync();
         }
     }
 
@@ -193,6 +195,23 @@ internal class UdemySeeder(
             }
         };
         return tags;
-    }   
-    //private IEnumerable<User> GetUsers
+    }
+    private User GetUser()
+    {
+        var user = new User
+        {
+            FirstName = "Zulfikar",
+            LastName = "Rustamov",
+            UserName = "zulfiqor_r",
+            Email = "zulfiqor@gmail.com",
+            PasswordHash = "1234"
+            //CreatedCourses = new List<Course>(),
+            //RegisteredCourses = new List<UserCourse>(),
+            //Comments = new List<Comment>(),
+            //Ratings = new List<Rating>(),
+            //Likes = new List<Like>()
+        };
+        return user;
+    }
+    
 }

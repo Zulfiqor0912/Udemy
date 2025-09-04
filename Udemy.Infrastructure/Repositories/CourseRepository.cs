@@ -33,6 +33,8 @@ public class CourseRepository(UdemyDbContext dbContext) : ICourseRepository
         return courses;
     }
 
+    public async Task<Course?> GetCourseById(Guid id) => await dbContext.Courses.FindAsync(id);
+
     public async Task<Course> UpdateCourse(Course course)
     {
         dbContext.Courses.Update(course);

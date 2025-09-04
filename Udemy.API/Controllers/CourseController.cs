@@ -2,8 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Udemy.Application;
 using Udemy.Application.Courses.Commands.CreateCourse;
+using Udemy.Application.Courses.Commands.DeleteCourse;
 using Udemy.Application.Courses.Dtos;
 using Udemy.Application.Courses.Queries.GetAll;
+using Udemy.Application.Courses.Queries.GetCourseById;
+using Udemy.Domain.Entities;
 
 namespace Udemy.API.Controllers;
 
@@ -23,5 +26,19 @@ public class CourseController(IMediator mediator) : ControllerBase
     {
         await mediator.Send(command);
         return Created();
+    }
+
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> DeleteCourse(Guid id)
+    {
+        await mediator.Send(new DeleteCourseCommand(id));
+        return Ok();
+    }
+
+    [HttpGet("{id:guid}")]
+    public async Task<IActionResult> GetCourseById(Guid id)
+    {
+        var course = await mediator.Send(new GetCourseByIdQuery(id));
+        return Ok(course);
     }
 }
