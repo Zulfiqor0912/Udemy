@@ -16,8 +16,4 @@
     <ProjectReference Include="..\Udemy.Domain\Udemy.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="CourseTags\Commands\" />
-  </ItemGroup>
-
 </Project>

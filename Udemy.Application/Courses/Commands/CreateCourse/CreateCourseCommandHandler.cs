@@ -18,7 +18,15 @@ public class CreateCourseCommandHandler(
             throw new Exception("Kiritilgan ma'lumotlar mos emas");
         }
         else {
-            var course = mapper.Map<Course>(request);
+            var course = new Course
+            {
+                Title = request.Title,
+                Description = request.Description,
+                CreatedById = request.CreatedById,
+                Price = request.Price,
+                CourseTags = request.Tag
+            };
+            //var course = mapper.Map<Course>(request);
             try
             {
                 await courseRepository.CreateCourse(course);
@@ -32,5 +40,5 @@ public class CreateCourseCommandHandler(
         }
         
     }
-
+     
 }

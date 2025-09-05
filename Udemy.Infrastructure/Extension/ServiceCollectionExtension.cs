@@ -20,6 +20,7 @@ public static class ServiceCollectionExtension
 
         services.AddScoped<ICourseRepository, CourseRepository>();
         services.AddScoped<ITagRepository, TagRepository>();
+        services.AddScoped<ICourseTagRepository, CourseTagRepository>();
         services.AddScoped<IUdemySeeder, UdemySeeder>();
     }
 }

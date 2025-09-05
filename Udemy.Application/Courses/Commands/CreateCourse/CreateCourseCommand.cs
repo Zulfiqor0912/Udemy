@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Udemy.Domain.Entities;
 
 namespace Udemy.Application.Courses.Commands.CreateCourse;
 
@@ -13,4 +14,7 @@ public class CreateCourseCommand : IRequest
     public Guid CreatedById { get; set; }
     //Kursning narxi (masalan: 49.99$).
     public decimal Price { get; set; }
+
+    //Kursga tegishli CourseTag obyekti ro‘yxati.
+    public ICollection<CourseTag> CourseTags { get; set; } = new List<CourseTag>();
 }
