@@ -10,6 +10,8 @@ public class CourseProfile : Profile
     {
         CreateMap<Course, CourseDto>();
 
+        CreateMap<Course, CourseDto>();
+
         CreateMap<CreateCourseCommand, Course>();
     }
 }

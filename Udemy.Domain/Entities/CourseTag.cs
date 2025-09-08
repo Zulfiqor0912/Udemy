@@ -7,5 +7,5 @@ public class CourseTag
     public Tag Tag { get; set; }
     //Qaysi kursga tegishli.
     public Guid CourseId { get; set; }
-    public Course Course { get; set; }
+    public Course Course { get; set; }  
 }

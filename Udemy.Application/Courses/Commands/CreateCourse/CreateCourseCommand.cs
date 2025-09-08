@@ -16,5 +16,5 @@ public class CreateCourseCommand : IRequest
     public decimal Price { get; set; }
 
     //Kursga tegishli CourseTag obyekti ro‘yxati.
-    public ICollection<CourseTag> CourseTags { get; set; } = new List<CourseTag>();
+    public ICollection<Guid> TagIds { get; set; } = new List<Guid>();
 }

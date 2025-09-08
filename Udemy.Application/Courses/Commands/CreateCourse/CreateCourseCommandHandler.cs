@@ -24,7 +24,10 @@ public class CreateCourseCommandHandler(
                 Description = request.Description,
                 CreatedById = request.CreatedById,
                 Price = request.Price,
-                CourseTags = request.Tag
+                CourseTags = request.TagIds.Select(tagId => new CourseTag
+                {
+                    TagId = tagId,
+                }).ToList()
             };
             //var course = mapper.Map<Course>(request);
             try

@@ -1,4 +1,5 @@
-﻿using Udemy.Domain.Entities;
+﻿using Udemy.Application.Tags.Dto;
+using Udemy.Domain.Entities;
 
 namespace Udemy.Application.Courses.Dtos;
 
@@ -23,4 +24,6 @@ public class CourseDto
     public User CreatedBy { get; set; } = default!;
     //Kursning narxi (masalan: 49.99$).
     public decimal Price { get; set; }
+
+    public List<TagDto> Tags { get; set; } = new();
 }

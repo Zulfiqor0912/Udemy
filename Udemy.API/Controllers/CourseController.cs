@@ -23,10 +23,9 @@ public class CourseController(IMediator mediator) : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CretaCourse(CreateCourseCommand courseCommand, CreateCourseTagCommand tagCommand)
+    public async Task<IActionResult> CretaCourse(CreateCourseCommand courseCommand)
     {
         await mediator.Send(courseCommand);
-        await mediator.Send(tagCommand);
         return Created();
     }
 
