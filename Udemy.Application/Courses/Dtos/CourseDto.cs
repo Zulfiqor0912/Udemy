@@ -1,4 +1,5 @@
 ﻿using Udemy.Application.Tags.Dto;
+using Udemy.Application.Users.Dtos;
 using Udemy.Domain.Entities;
 
 namespace Udemy.Application.Courses.Dtos;
@@ -21,7 +22,7 @@ public class CourseDto
     public Guid CreatedById { get; set; }
 
     //Kursni yaratgan foydalanuvchi obyekti.
-    public User CreatedBy { get; set; } = default!;
+    public UserDto CreatedBy { get; set; } = default!;
     //Kursning narxi (masalan: 49.99$).
     public decimal Price { get; set; }
 

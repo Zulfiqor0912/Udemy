@@ -1,8 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Udemy.Application.Courses.Commands.CreateCourse;
-using Udemy.Application.Courses.Dtos;
-using Udemy.Application.Courses.Queries.GetAll;
-using Udemy.Application.Tags.Dto;
 using Udemy.Domain.Entities;
 using Udemy.Domain.Repositories;
 using Udemy.Infrastructure.Persistence;
@@ -42,7 +38,11 @@ public class CourseRepository(UdemyDbContext dbContext) : ICourseRepository
         return course;
     }
 
-    public async Task<Course?> GetCourseById(Guid id) => await dbContext.Courses.FindAsync(id);
+    public async Task<Course?> GetCourseById(Guid id) => await dbContext.Courses
+        .Include(ct => ct.CourseTags)
+            .ThenInclude(t => t.Tag)
+        .Include(cb => cb.CreatedBy)
+        .FirstOrDefaultAsync(c => c.Id == id);
 
     public async Task<Course> UpdateCourse(Course course)
     {
