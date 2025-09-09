@@ -34,17 +34,11 @@ public class CourseRepository(UdemyDbContext dbContext) : ICourseRepository
 
     public async Task<IEnumerable<Course>> GetAllAsyn()
     {
-        var course = await dbContext.Courses.Include(c => c.CourseTags)
-            .ThenInclude(ct => ct.Tag)
-            .Select(c => new Course
-            {
-                Id = c.Id,
-                Title = c.Title,
-                Description = c.Description,
-                Price = c.Price,
-                CourseTags = c.CourseTags
-            }).ToListAsync();
-
+        var course = await dbContext.Courses
+            .Include(ct => ct.CourseTags)
+                .ThenInclude(t => t.Tag)
+            .Include(cb => cb.CreatedBy)
+            .ToListAsync();
         return course;
     }
 
