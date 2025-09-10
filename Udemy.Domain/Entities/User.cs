@@ -1,6 +1,9 @@
-﻿namespace Udemy.Domain.Entities;
+﻿using Microsoft.AspNetCore.Identity;
+using System.Data.Common;
 
-public class User
+namespace Udemy.Domain.Entities;
+
+public class User : IdentityUser<Guid>
 {
     //Har bir foydalanuvchining unikal identifikatori.
     public Guid Id { get; set; }

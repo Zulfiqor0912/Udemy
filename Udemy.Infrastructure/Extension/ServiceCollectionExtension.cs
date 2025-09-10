@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Udemy.Domain.Entities;
 using Udemy.Domain.Repositories;
 using Udemy.Infrastructure.Persistence;
 using Udemy.Infrastructure.Repositories;
@@ -17,6 +19,9 @@ public static class ServiceCollectionExtension
            .AddDbContext<UdemyDbContext>(options =>
                 options.UseSqlServer(connectionString)
                 .EnableSensitiveDataLogging());
+
+
+        
 
         services.AddScoped<ICourseRepository, CourseRepository>();
         services.AddScoped<ITagRepository, TagRepository>();

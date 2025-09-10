@@ -1,12 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System.Reflection.Emit;
 using Udemy.Domain.Entities;
 
 namespace Udemy.Infrastructure.Persistence;
 
-public class UdemyDbContext(DbContextOptions<UdemyDbContext> options) : DbContext(options)
+public class UdemyDbContext(DbContextOptions<UdemyDbContext> options) : 
+    IdentityDbContext<User, IdentityRole<Guid>, Guid>(options)
 {
-
+        
     internal DbSet<Content> Contents { get; set; }
     internal DbSet<Comment> Comments { get; set; }
     internal DbSet<Course> Courses { get; set; }
