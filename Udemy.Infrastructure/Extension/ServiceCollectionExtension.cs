@@ -21,8 +21,8 @@ public static class ServiceCollectionExtension
                 .EnableSensitiveDataLogging());
 
 
-        
 
+        services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<ICourseRepository, CourseRepository>();
         services.AddScoped<ITagRepository, TagRepository>();
         services.AddScoped<ICourseTagRepository, CourseTagRepository>();
