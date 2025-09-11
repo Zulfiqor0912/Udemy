@@ -20,13 +20,20 @@ public class RegisterUserCommandHandler(
         var user = mapper.Map<User>(request);
         try
         {
-            await userRepository.AddAsync(user);
+            var result = await userManager.CreateAsync(user, request.Password);
+            if (!result.Succeeded)
+            {
+                var errors = string.Join("; ", result.Errors.Select(e => e.Description));
+                logger.LogError("Foydalanuvchi {Email} registratsiyadan o'tmadi: {Errors}", user.Email, errors);
+                throw new ApplicationException($"Registratsiya xatosi: {errors}");  
+            }
+            //await userRepository.AddAsync(user);
             logger.LogInformation("Foydalanuvchi {Email} registratsiyadan muvaffaqqiyatli o'tdi.", user.Email);
             return user.Id;
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "Registratsida xato yuz berdi {Email}.", user.Email);
+            logger.LogError(ex, "Kutilmagan xato yuz berdi registratsiya vaqtida: {Email}", user.Email);
             throw;
         }
     }

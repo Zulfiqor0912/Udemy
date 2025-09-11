@@ -8,6 +8,8 @@ public class UserProfile : Profile
     public UserProfile()
     {
         CreateMap<User, UserDto>();
-        CreateMap<RegisterUserCommand, User>();
+
+        CreateMap<RegisterUserCommand, User>()
+            .ForMember(doest => doest.PasswordHash, opt => opt.Ignore());
     }
 }

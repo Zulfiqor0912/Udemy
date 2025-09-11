@@ -16,7 +16,4 @@ public class UserDto
 
     //Foydalanuvchining elektron pochta manzili.
     public string Email { get; set; } = default!;
-
-    //Foydalanuvchining parol hash qiymati.
-    public string PasswordHash { get; set; } = default!;
 }
