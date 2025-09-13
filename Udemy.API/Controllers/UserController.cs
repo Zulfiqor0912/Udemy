@@ -1,8 +1,10 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Udemy.Application.Users.Commands.Login;
 using Udemy.Application.Users.Commands.Register;
+using Udemy.Domain.Constants;
 using Udemy.Domain.Entities;
 
 namespace Udemy.API.Controllers;

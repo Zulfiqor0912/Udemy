@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using Udemy.API.Extension;
 using Udemy.Application.Extension;
@@ -12,9 +13,9 @@ builder.AddPresentation();
 builder.Services.AddAplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 
-builder.Services.AddIdentityApiEndpoints<User>()
-            .AddRoles<IdentityRole<Guid>>()
-            .AddEntityFrameworkStores<UdemyDbContext>();
+builder.Services.AddIdentity<User, IdentityRole<Guid>>()
+            .AddEntityFrameworkStores<UdemyDbContext>()
+            .AddDefaultTokenProviders();
 
 var app = builder.Build();
 var scope = app.Services.CreateScope();
@@ -33,11 +34,32 @@ if (app.Environment.IsDevelopment())
 
 
 
+app.UseExceptionHandler(appError =>
+{
+    appError.Run(async context =>
+    {
+        context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+        context.Response.ContentType = "application/json";
+
+        var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
+        if (contextFeature != null)
+        {
+            await context.Response.WriteAsync(System.Text.Json.JsonSerializer.Serialize(new
+            {
+                StatusCode = context.Response.StatusCode,
+                Message = "Internal Server Error",
+                Detail = contextFeature.Error.Message
+            }));
+        }
+    });
+});
 
 
-app.MapGroup("api/identity").MapIdentityApi<User>();
+app.MapGroup("api/identity");
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

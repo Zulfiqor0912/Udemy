@@ -17,7 +17,6 @@ public class CreateCourseCommandHandler(
         {
             throw new Exception("Kiritilgan ma'lumotlar mos emas");
         }
-        else {
             var course = new Course
             {
                 Title = request.Title,
@@ -40,7 +39,7 @@ public class CreateCourseCommandHandler(
                 logger.LogInformation(ex.Message);
                 throw;
             }
-        }
+        
         
     }
      

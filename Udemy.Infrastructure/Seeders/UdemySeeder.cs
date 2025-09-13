@@ -1,11 +1,18 @@
-﻿using Microsoft.Identity.Client;
+﻿using AutoMapper;
+using Azure.Core;
+using Microsoft.AspNetCore.Identity;
+using Udemy.Application.Users.Commands.Register;
+using Udemy.Domain.Constants;
 using Udemy.Domain.Entities;
 using Udemy.Infrastructure.Persistence;
 
 namespace Udemy.Infrastructure.Seeders;
 
 internal class UdemySeeder(
-    UdemyDbContext dbContext
+    UdemyDbContext dbContext,
+    UserManager<User> userManager,
+    RoleManager<IdentityRole<Guid>> roleManager,
+    IMapper mapper
     ) : IUdemySeeder
 {
     public async Task Seed()
@@ -21,9 +28,18 @@ internal class UdemySeeder(
         }
         if (!dbContext.Users.Any())
         {
-            var user = GetUser();
-            await dbContext.Users.AddAsync(user);
-            await dbContext.SaveChangesAsync();
+            var registerCommand = GetUser();
+            var user = mapper.Map<User>(registerCommand);
+            await userManager.CreateAsync(user, "Zulfiqor#1212");
+            await userManager.AddToRoleAsync(user, UserRoles.Programmer);
+        }
+
+        if (!dbContext.Roles.Any())
+        {
+            var roles = GetRoles();
+            foreach (var role in roles)
+                if (!await roleManager.RoleExistsAsync(role.Name)) 
+                    await roleManager.CreateAsync(role);          
         }
     }
 
@@ -196,22 +212,28 @@ internal class UdemySeeder(
         };
         return tags;
     }
-    private User GetUser()
+    private RegisterUserCommand GetUser()
     {
-        var user = new User
+        var registerUserCommand = new RegisterUserCommand
         {
             FirstName = "Zulfikar",
             LastName = "Rustamov",
             UserName = "zulfiqor_r",
             Email = "zulfiqor@gmail.com",
-            PasswordHash = "1234"
-            //CreatedCourses = new List<Course>(),
-            //RegisteredCourses = new List<UserCourse>(),
-            //Comments = new List<Comment>(),
-            //Ratings = new List<Rating>(),
-            //Likes = new List<Like>()
         };
-        return user;
+        return registerUserCommand;
+    }
+
+    private IEnumerable<IdentityRole<Guid>> GetRoles()
+    {
+        List<IdentityRole<Guid>> roles =
+            [
+                new IdentityRole < Guid >(UserRoles.Programmer),
+                new IdentityRole < Guid >(UserRoles.Admin),
+                new IdentityRole < Guid >(UserRoles.Teacher),
+                new IdentityRole < Guid >(UserRoles.Student),
+            ];
+        return roles;
     }
     
 }

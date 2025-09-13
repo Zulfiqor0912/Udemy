@@ -44,6 +44,12 @@ public class LoginCommandHandler(
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
+            var userRoles = await userManager.GetRolesAsync(user);
+            foreach (var role in userRoles)
+            {
+                authClaims.Add(new Claim(ClaimTypes.Role, role));
+            }
+
             var secret = config["JWT:Secret"];
             if (string.IsNullOrWhiteSpace(secret))
                 throw new Exception("JWT secret topilmadi. Iltimos appsettings yoki user-secrets da sozla.");
