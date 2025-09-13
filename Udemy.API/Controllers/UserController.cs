@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Udemy.Application.Users.Commands.Login;
 using Udemy.Application.Users.Commands.Register;
 using Udemy.Domain.Entities;
 
@@ -15,5 +16,12 @@ public class UserController(IMediator mediatR) : ControllerBase
     {
         var userId = await mediatR.Send(command);
         return Ok(new { UserId = userId });
+    }
+
+    [HttpPost("login")]
+    public async Task<IActionResult> Login([FromBody] LoginUserCommand command)
+    {
+        var token = await mediatR.Send(command);
+        return Ok(token);
     }
 }

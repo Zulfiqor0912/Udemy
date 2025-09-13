@@ -4,8 +4,8 @@ namespace Udemy.Application.Users.Commands.Register;
 
 public class RegisterUserCommand : IRequest<Guid>
 {
-    //Har bir foydalanuvchining unikal identifikatori.
-    public Guid Id { get; set; }
+    ////Har bir foydalanuvchining unikal identifikatori.
+    //public Guid Id { get; set; }
 
     //Foydalanuvchining ismi.
     public string FirstName { get; set; } = default!;
