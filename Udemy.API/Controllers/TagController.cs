@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Udemy.Application.Tags.Commands.CrateTag;
 using Udemy.Application.Tags.Commands.DeleteTag;
@@ -9,8 +10,9 @@ using Udemy.Domain.Entities;
 
 namespace Udemy.API.Controllers;
 
+[Authorize]
 [ApiController]
-[Route("api/tag")]
+[Route("api/[controller]")]
 public class TagController(IMediator mediator) : ControllerBase
 {
     [HttpPost]

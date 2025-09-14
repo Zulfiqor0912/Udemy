@@ -13,19 +13,20 @@ using Udemy.Domain.Entities;
 
 namespace Udemy.API.Controllers;
 
-[Authorize]
 [ApiController]
-[Route("api/course")]
+[Route("api/[controller]")]
+[Authorize]
 public class CourseController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
+    [AllowAnonymous]
     public async Task<IActionResult> GetAllCourses()
     {
         var courses = await mediator.Send(new GetAllCoursesQuery());
         return Ok(courses);
     }
 
-    [Authorize(Roles = UserRoles.Programmer + "," + UserRoles.Admin + "," + UserRoles.Teacher)]
+    [Authorize(Roles = $"{UserRoles.Programmer},{UserRoles.Admin},{UserRoles.Teacher}")] //[Authorize(Roles = UserRoles.Programmer + "," + UserRoles.Admin + "," + UserRoles.Teacher)]
     [HttpPost]
     public async Task<IActionResult> CretaCourse(CreateCourseCommand courseCommand)
     {

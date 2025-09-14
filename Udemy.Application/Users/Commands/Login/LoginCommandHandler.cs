@@ -47,7 +47,7 @@ public class LoginCommandHandler(
             var userRoles = await userManager.GetRolesAsync(user);
             foreach (var role in userRoles)
             {
-                authClaims.Add(new Claim(ClaimTypes.Role, role));
+                authClaims.Add(new Claim("role", role));
             }
 
             var secret = config["JWT:Secret"];

@@ -1,11 +1,14 @@
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Identity;
+using System.IdentityModel.Tokens.Jwt;
 using Udemy.API.Extension;
 using Udemy.Application.Extension;
 using Udemy.Domain.Entities;
 using Udemy.Infrastructure.Extension;
 using Udemy.Infrastructure.Persistence;
 using Udemy.Infrastructure.Seeders;
+
+JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
 var builder = WebApplication.CreateBuilder(args);
 builder.AddPresentation();
@@ -55,10 +58,11 @@ app.UseExceptionHandler(appError =>
 });
 
 
-app.MapGroup("api/identity");
+//app.MapGroup("api/identity");
 
 app.UseHttpsRedirection();
-
+app.UseStaticFiles();
+app.UseRouting();
 app.UseAuthentication();
 
 app.UseAuthorization();

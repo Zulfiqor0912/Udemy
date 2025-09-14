@@ -27,18 +27,25 @@ namespace Udemy.API.Extension
                         ValidateIssuerSigningKey = true,
                         ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
                         ValidAudience = builder.Configuration["JWT:ValidAudience"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret))
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"])),
+                        ClockSkew = TimeSpan.Zero
                     };
+                    options.MapInboundClaims = false; // "role" claim uchun
                 });
 
+            
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c =>
             {
-                c.AddSecurityDefinition("bearerAuth", new OpenApiSecurityScheme
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
-                    Type = SecuritySchemeType.Http,
-                    Scheme = "Bearer"
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "JWT tokenni quyidagicha kiriting: Bearer {your token}"
                 });
 
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -49,10 +56,10 @@ namespace Udemy.API.Extension
                             Reference = new OpenApiReference
                             {
                                 Type = ReferenceType.SecurityScheme,
-                                Id = "bearerAuth"
+                                Id = "Bearer"
                             }
                         },
-                        []
+                        Array.Empty<string>()
                     }
                 });
             });

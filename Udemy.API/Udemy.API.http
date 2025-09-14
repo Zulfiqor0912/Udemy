@@ -1,11 +1,68 @@
 @Udemy.API_HostAddress = http://localhost:5167
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoienVsZmlxb3JfciIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiOWFlZjhmNzYtYTAyNS00ODY5LTEyZDItMDhkZGYzMDRkN2E4IiwianRpIjoiOGVhYTVjZDktMjc0Ny00ZDYwLWIyNWQtZTVlMTIwMDM5ZGNhIiwicm9sZSI6IlByb2dyYW1tZXIiLCJleHAiOjE3NTc4ODMyMzQsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NzI3NCIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NzI3NCJ9.7oxjdW8ASL97ywGRFfMbAwmhxzWza2qUv3uuU3d9qyQ
 
-GET {{Udemy.API_HostAddress}}/weatherforecast/
+### REGISTER
+POST {{Udemy.API_HostAddress}}/api/user/register
+Content-Type: application/json
+
+{
+  "userName": "zulfiqor_r",
+  "email": "zulfiqor@example.com",
+  "password": "ParolingniYoz"
+}
+
+### LOGIN
+POST {{Udemy.API_HostAddress}}/api/user/login
+Content-Type: application/json
+
+{
+  "email": "zulfiqor@gmail.com",
+  "password": "Zulfiqor#1212"
+}
+
+### GET ALL COURSES (Authorized)
+GET {{Udemy.API_HostAddress}}/api/course
+Accept: application/json
+Authorization: Bearer {{token}}
+
+### CREATE NEW COURSE (faqat Programmer, Admin, Teacher role'larga ruxsat)
+POST {{Udemy.API_HostAddress}}/api/course
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "title": "ASP.NET Core Fundamentals",
+  "description": "Dastlabki kurs",
+  "price": 200000,
+  "teacherId": "00000000-0000-0000-0000-000000000000"  // haqiqiy teacher Guid bo'lishi kerak
+}
+
+### DELETE COURSE by ID (Authorized)
+DELETE {{Udemy.API_HostAddress}}/api/course/00000000-0000-0000-0000-000000000000
+Authorization: Bearer {{token}}
+
+### GET COURSE by ID (Anonymous ham ishlaydi, token shart emas)
+GET {{Udemy.API_HostAddress}}/api/course/00000000-0000-0000-0000-000000000000
 Accept: application/json
 
-###
-
-GET {{Udemy.API_HostAddress}}/api/course/
+### GET ALL TAGS
+GET {{Udemy.API_HostAddress}}/api/tag
 Accept: application/json
+Authorization: Bearer {{token}}
 
-###
+### CREATE TAG
+POST {{Udemy.API_HostAddress}}/api/tag
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Backend"
+}
+
+### DELETE TAG by Name
+DELETE {{Udemy.API_HostAddress}}/api/tag/by-name/Backend
+Authorization: Bearer {{token}}
+
+### GET TAG by Name
+GET {{Udemy.API_HostAddress}}/api/tag/by-name/Backend
+Authorization: Bearer {{token}}
