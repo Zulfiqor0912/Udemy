@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Udemy.Application.Users.Commands.AssignUserRole;
 using Udemy.Application.Users.Commands.Login;
 using Udemy.Application.Users.Commands.Register;
 using Udemy.Application.Users.Commands.UnAssignRole;
@@ -26,6 +27,13 @@ public class UserController(IMediator mediatR) : ControllerBase
     {
         var token = await mediatR.Send(command);
         return Ok(token);
+    }
+
+    [HttpPost("assign-role")]
+    public async Task<IActionResult> AssignUserRole(AssignUserRoleCommand command)
+    {
+        await mediatR.Send(command);
+        return Ok();
     }
 
     [HttpDelete("unassign-role")]

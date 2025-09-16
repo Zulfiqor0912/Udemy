@@ -26,7 +26,7 @@ public class UnAssignRoleCommandHandler(
                 logger.LogInformation("Bu emaildagi foydalanuvchi topilmadi");
                 throw new Exception("Bu emaildagi foydalanuvchi topilmadi");
             }
-            var role = roleManager.FindByNameAsync(request.RoleName);
+            var role = await roleManager.FindByNameAsync(request.RoleName);
             if (role is null)
             {
                 logger.LogInformation("Bu nomdagi rol topilmadi");

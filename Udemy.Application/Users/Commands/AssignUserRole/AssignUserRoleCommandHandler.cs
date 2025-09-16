@@ -12,7 +12,7 @@ public class AssignUserRoleCommandHandler(
 {
     public async Task Handle(AssignUserRoleCommand request, CancellationToken cancellationToken)
     {
-        if (request != null)
+        if (request is null)
         {
             logger.LogInformation("Email yoki role null");
             throw new ArgumentNullException(nameof(request));
@@ -25,13 +25,13 @@ public class AssignUserRoleCommandHandler(
                 logger.LogInformation("Bunday foydalanuvchi topilmadi");
                 throw new ArgumentNullException(nameof(user));
             }
-            var role = roleManager.FindByNameAsync(request.RoleName);
+            var role = await roleManager.FindByNameAsync(request.RoleName);
             if (role is null)
             {
                 logger.LogInformation("Bunday role topilmadi");
                 throw new ArgumentNullException(nameof(role));
             }
-            var isInRole = await userManager.IsInRoleAsync(user, request.Email);
+            var isInRole = await userManager.IsInRoleAsync(user, request.RoleName);
             if (isInRole) throw new Exception("Foydalanuvchi allaqachon ushbu rolda");
             else
             {

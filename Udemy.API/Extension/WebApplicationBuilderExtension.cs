@@ -28,7 +28,8 @@ namespace Udemy.API.Extension
                         ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
                         ValidAudience = builder.Configuration["JWT:ValidAudience"],
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"])),
-                        ClockSkew = TimeSpan.Zero
+                        ClockSkew = TimeSpan.Zero,
+                        RoleClaimType = "role"
                     };
                     options.MapInboundClaims = false; // "role" claim uchun
                 });
