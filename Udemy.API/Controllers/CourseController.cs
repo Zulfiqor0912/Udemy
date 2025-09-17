@@ -30,9 +30,9 @@ public class CourseController(IMediator mediator) : ControllerBase
     }
 
     [HttpDelete("{id:guid}")]
-    public async Task<IActionResult> DeleteCourse(Guid id)
+    public async Task<IActionResult> DeleteCourse(DeleteCourseCommand command)
     {
-        await mediator.Send(new DeleteCourseCommand(id));
+        await mediator.Send(command);
         return Ok();
     }
 

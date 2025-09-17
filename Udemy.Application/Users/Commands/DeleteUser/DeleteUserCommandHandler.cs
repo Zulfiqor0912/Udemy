@@ -28,7 +28,7 @@ public class DeleteUserCommandHandler(
             }
             await userManager.DeleteAsync(user);
             logger.LogInformation("Foydalanuvchi muvaffaqiyatli o'chirildi");
-            throw new Exception("Foydalanuvchi muvaffaqiyatli o'chirildi");
+            return;
         }
         catch (Exception ex)
         {

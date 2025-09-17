@@ -2,11 +2,14 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Udemy.Application.Courses.Queries.GetAll;
 using Udemy.Application.Users.Commands.AssignUserRole;
 using Udemy.Application.Users.Commands.DeleteUser;
 using Udemy.Application.Users.Commands.Login;
 using Udemy.Application.Users.Commands.Register;
 using Udemy.Application.Users.Commands.UnAssignRole;
+using Udemy.Application.Users.Dtos;
+using Udemy.Application.Users.Queries.GetAllUsersByRole;
 using Udemy.Domain.Constants;
 using Udemy.Domain.Entities;
 
@@ -44,10 +47,17 @@ public class UserController(IMediator mediatR) : ControllerBase
         return NoContent();
     }
 
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteUser(DeleteUserCommand command)
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> DeleteUser(Guid id)
     {
-        await mediatR.Send(command);
-        return Ok();
+        await mediatR.Send(new DeleteUserCommand(id));
+        return NoContent();
+    }
+
+    [HttpGet("roles/{roleName}")]
+    public async Task<IEnumerable<UsersByRoleDto>> GetAllUsersByRole(string roleName)
+    {
+        var users = await mediatR.Send(new GetAllUsersByRoleQuery(roleName));
+        return users;
     }
 }

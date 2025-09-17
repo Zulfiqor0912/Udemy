@@ -11,5 +11,7 @@ public class UserProfile : Profile
 
         CreateMap<RegisterUserCommand, User>()
             .ForMember(doest => doest.PasswordHash, opt => opt.Ignore());
+
+        CreateMap<User, UsersByRoleDto>();
     }
 }
