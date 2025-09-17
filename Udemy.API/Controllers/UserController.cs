@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Udemy.Application.Users.Commands.AssignUserRole;
+using Udemy.Application.Users.Commands.DeleteUser;
 using Udemy.Application.Users.Commands.Login;
 using Udemy.Application.Users.Commands.Register;
 using Udemy.Application.Users.Commands.UnAssignRole;
@@ -41,5 +42,12 @@ public class UserController(IMediator mediatR) : ControllerBase
     {
         await mediatR.Send(command);
         return NoContent();
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteUser(DeleteUserCommand command)
+    {
+        await mediatR.Send(command);
+        return Ok();
     }
 }
