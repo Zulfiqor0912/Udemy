@@ -30,7 +30,7 @@ internal class UdemySeeder(
         {
             var registerCommand = GetUser();
             var user = mapper.Map<User>(registerCommand);
-            await userManager.CreateAsync(user, "Zulfiqor#1212");
+            await userManager.CreateAsync(user, "   ");
             await userManager.AddToRoleAsync(user, UserRoles.Programmer);
         }
 

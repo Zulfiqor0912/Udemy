@@ -9,6 +9,7 @@ using Udemy.Application.Users.Commands.Login;
 using Udemy.Application.Users.Commands.Register;
 using Udemy.Application.Users.Commands.UnAssignRole;
 using Udemy.Application.Users.Dtos;
+using Udemy.Application.Users.Queries.GetAllUsers;
 using Udemy.Application.Users.Queries.GetAllUsersByRole;
 using Udemy.Domain.Constants;
 using Udemy.Domain.Entities;
@@ -59,5 +60,12 @@ public class UserController(IMediator mediatR) : ControllerBase
     {
         var users = await mediatR.Send(new GetAllUsersByRoleQuery(roleName));
         return users;
+    }
+
+    [HttpGet("allUsers")]
+    public async Task<IActionResult> GetAllUsers()
+    {
+        var users = await mediatR.Send(new GetAllUsersQuery());
+        return Ok(users);
     }
 }
