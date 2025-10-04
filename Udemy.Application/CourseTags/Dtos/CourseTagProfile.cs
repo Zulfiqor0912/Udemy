@@ -2,7 +2,7 @@
 using Udemy.Application.CourseTags.Commands.CreateCourseTag;
 using Udemy.Domain.Entities;
 
-namespace Udemy.Application.CourseTags.Commands.Dtos;
+namespace Udemy.Application.CourseTags.Dtos;
 
 public class CourseTagProfile : Profile
 {

@@ -1,4 +1,4 @@
-﻿namespace Udemy.Application.CourseTags.Commands.Dtos;
+﻿namespace Udemy.Application.CourseTags.Dtos;
 
 public class CourseTagDto
 {

@@ -2,20 +2,19 @@
 
 public class Content
 {
-    //Kontentning unikal identifikatori.
     public Guid Id { get; set; }
 
-    //Kontent nomi (masalan: “Installing .NET SDK”).
+    // Kontent nomi (masalan: "Lesson 1 - Introduction")
     public string Title { get; set; } = default!;
 
-    //Video darsning manzili.
-    public string? VideoUrl { get; set; } = default!;
+    // Kontent turi (video, text, quiz, va hokazo)
+    public string Type { get; set; } = default!;
 
-    //Matn ko‘rinishidagi material.
-    public string? TextBody { get; set; } = default!;
+    // Video link yoki matnli material
+    public string? Url { get; set; }
+    public string? Text { get; set; }
 
-    //Ushbu kontent qaysi modulga tegishli.
+    // Qaysi modulga tegishli
     public Guid ModuleId { get; set; }
-
-    public Module Module { get; set; }
+    public Module Module { get; set; } = default!;
 }
