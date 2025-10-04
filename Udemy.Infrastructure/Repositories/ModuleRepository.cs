@@ -1,12 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Udemy.Domain.Entities;
+using Udemy.Domain.Repositories;
+using Udemy.Infrastructure.Persistence;
 
-namespace Udemy.Infrastructure.Repositories
+namespace Udemy.Infrastructure.Repositories;
+
+public class ModuleRepository(UdemyDbContext udemyDbContext) : IModuleRepository
 {
-    internal class ModuleRepository
+    public async Task CreateModule(Module module)
     {
+        await udemyDbContext.Modules.AddAsync(module);
+        await udemyDbContext.SaveChangesAsync();
+    }
+
+    public async Task DeleteModule(Guid Id)
+    {
+        var module = await udemyDbContext.Modules.FindAsync(Id);
+        udemyDbContext.Modules.Remove(module);
+        await udemyDbContext.SaveChangesAsync();
     }
 }

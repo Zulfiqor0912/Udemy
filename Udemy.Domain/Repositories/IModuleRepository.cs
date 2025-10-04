@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Udemy.Domain.Entities;
 
-namespace Udemy.Domain.Repositories
+namespace Udemy.Domain.Repositories;
+
+public interface IModuleRepository
 {
-    internal interface IModuleRepository
-    {
-    }
+    Task CreateModule(Module module);
+    Task DeleteModule(Guid Id);
 }
