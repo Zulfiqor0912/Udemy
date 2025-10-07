@@ -1,4 +1,5 @@
-﻿using Udemy.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Udemy.Domain.Entities;
 using Udemy.Domain.Repositories;
 using Udemy.Infrastructure.Persistence;
 
@@ -17,6 +18,12 @@ public class ModuleRepository(UdemyDbContext udemyDbContext) : IModuleRepository
         var module = await udemyDbContext.Modules.FindAsync(Id);
         udemyDbContext.Modules.Remove(module);
         await udemyDbContext.SaveChangesAsync();
+    }
+
+    public async Task<IEnumerable<Module>> GetAll()
+    {
+        var modules = await udemyDbContext.Modules.ToListAsync();
+        return modules;
     }
 
     public async Task<Module> GetModuleById(Guid Id)

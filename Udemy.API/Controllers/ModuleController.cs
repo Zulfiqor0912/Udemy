@@ -4,6 +4,9 @@ using Udemy.Application.Modules.Command.CreateModule;
 using Udemy.Application.Modules.Command.RemoveModule;
 using Udemy.Application.Modules.Command.UpdateModule;
 using Udemy.Application.Modules.Queries;
+using Udemy.Application.Modules.Queries.GetAllModules;
+using Udemy.Application.Modules.Queries.GetModuleById;
+using Udemy.Domain.Entities;
 
 namespace Udemy.API.Controllers;
 
@@ -38,5 +41,12 @@ public class ModuleController(IMediator mediator) : ControllerBase
     {
         var module = await mediator.Send(new GetModuleByIdQuery(id));
         return Ok(module);
+    }
+
+    [HttpGet]
+    public async Task<IEnumerable<Module>> GetAllModules()
+    {
+        var modules = await mediator.Send(new GetAllModulesQuery());
+        return modules;
     }
 }

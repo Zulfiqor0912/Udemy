@@ -1,13 +1,12 @@
-﻿namespace Udemy.Domain.Entities;
+﻿using MediatR;
 
-public class Content
+namespace Udemy.Application.Contents.Command.UpdateContent;
+
+public class UpdateContentCommand(Guid id) : IRequest
 {
-    public Guid Id { get; set; }
+    public Guid Id { get; set; } = id;
     // Kontent nomi (masalan: "Lesson 1 - Introduction")
     public string Title { get; set; } = default!;
-    //// Kontent turi (video, text, quiz, va hokazo)
-    //public string Type { get; set; } = default!;
-
     // Video link  
     public string? UrlVideo { get; set; }
     // Rasm link
@@ -15,5 +14,4 @@ public class Content
     public string? Text { get; set; }
     // Qaysi modulga tegishli
     public Guid ModuleId { get; set; }
-    public Module Module { get; set; } = default!;
 }

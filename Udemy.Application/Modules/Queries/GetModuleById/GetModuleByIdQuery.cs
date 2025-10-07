@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Udemy.Domain.Entities;
 
-namespace Udemy.Application.Modules.Queries;
+namespace Udemy.Application.Modules.Queries.GetModuleById;
 
 public class GetModuleByIdQuery(Guid id) : IRequest<Module>
 {

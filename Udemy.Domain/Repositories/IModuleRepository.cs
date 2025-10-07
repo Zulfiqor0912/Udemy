@@ -8,4 +8,5 @@ public interface IModuleRepository
     Task DeleteModule(Guid Id);
     Task UpdateModule(Guid id, Module module);
     Task<Module> GetModuleById(Guid Id);
+    Task<IEnumerable<Module>> GetAll();
 }

@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using Udemy.Domain.Entities;
 using Udemy.Domain.Repositories;
 
-namespace Udemy.Application.Modules.Queries;
+namespace Udemy.Application.Modules.Queries.GetModuleById;
 
 public class GetModuleByIdQueryHandler(
     ILogger<GetModuleByIdQueryHandler> logger,
