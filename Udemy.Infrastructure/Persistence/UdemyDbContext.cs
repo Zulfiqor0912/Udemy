@@ -98,7 +98,7 @@ public class UdemyDbContext(DbContextOptions<UdemyDbContext> options) :
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<Like>()
-            .HasKey(l => new { l.UserId, l.CourseId });
+            .HasKey(l => l.Id); // endi Id primary key
 
         modelBuilder.Entity<Like>()
             .HasOne(l => l.Course)
@@ -111,6 +111,7 @@ public class UdemyDbContext(DbContextOptions<UdemyDbContext> options) :
             .WithMany(u => u.Likes)
             .HasForeignKey(l => l.UserId)
             .OnDelete(DeleteBehavior.Restrict);
+
 
 
 

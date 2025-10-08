@@ -26,20 +26,21 @@ internal class UdemySeeder(
                 await dbContext.SaveChangesAsync();
             }
         }
+
+        if (!dbContext.Roles.Any())
+        {
+            var roles = GetRoles();
+            foreach (var role in roles)
+                if (!await roleManager.RoleExistsAsync(role.Name))
+                    await roleManager.CreateAsync(role);
+        }
+
         if (!dbContext.Users.Any())
         {
             var registerCommand = GetUser();
             var user = mapper.Map<User>(registerCommand);
             await userManager.CreateAsync(user, "Zulfiqor#1212");
             await userManager.AddToRoleAsync(user, UserRoles.Programmer);
-        }
-
-        if (!dbContext.Roles.Any())
-        {
-            var roles = GetRoles();
-            foreach (var role in roles)
-                if (!await roleManager.RoleExistsAsync(role.Name)) 
-                    await roleManager.CreateAsync(role);          
         }
     }
 

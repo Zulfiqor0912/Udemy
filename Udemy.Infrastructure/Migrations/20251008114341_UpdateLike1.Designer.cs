@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Udemy.Infrastructure.Persistence;
 
@@ -11,9 +12,11 @@ using Udemy.Infrastructure.Persistence;
 namespace Udemy.Infrastructure.Migrations
 {
     [DbContext(typeof(UdemyDbContext))]
-    partial class UdemyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251008114341_UpdateLike1")]
+    partial class UpdateLike1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
