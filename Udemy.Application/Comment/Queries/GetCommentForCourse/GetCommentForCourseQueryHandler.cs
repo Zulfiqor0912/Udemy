@@ -9,28 +9,28 @@ namespace Udemy.Application.Comment.Queries.GetCommentForCourse;
 public class GetCommentForCourseQueryHandler(
     IMapper mapper,
     ILogger<GetCommentForCourseQueryHandler> logger,
-    ICommentRepository commentRepository) : IRequestHandler<GetCommentForCourseQuery, IEnumerable<CommentDto>>
+    ICommentRepository commentRepository) : IRequestHandler<GetCommentForCourseQuery, CommentDto>
 {
-    async Task<IEnumerable<CommentDto>> IRequestHandler<GetCommentForCourseQuery, IEnumerable<CommentDto>>.Handle(GetCommentForCourseQuery request, CancellationToken cancellationToken)
+    async Task<CommentDto> IRequestHandler<GetCommentForCourseQuery, CommentDto>.Handle(GetCommentForCourseQuery request, CancellationToken cancellationToken)
     {
         try
         {
             var c = await commentRepository.GetCommentForCourse(request.Id);
-            var comments = mapper.Map<IEnumerable<CommentDto>>(c);
-            if (comments is null)
+            var comment = mapper.Map<CommentDto>(c);
+            if (comment is null)
             {
                 logger.LogInformation("Commentlar hali mavjud emas");
                 throw new ArgumentException();
             }
             else
             {
-                return comments;
+                return comment;
             }
         }
         catch (Exception ex) 
         {
             logger.LogError(ex, "Nimadir xato ketdi!");
-            return Enumerable.Empty<CommentDto>();
+            throw;
         }
     }
 }

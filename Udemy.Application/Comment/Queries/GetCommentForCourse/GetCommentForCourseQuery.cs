@@ -3,7 +3,7 @@ using Udemy.Application.Comment.Dtos;
 
 namespace Udemy.Application.Comment.Queries.GetCommentForCourse;
 
-internal class GetCommentForCourseQuery(Guid commentId) : IRequest<IEnumerable<CommentDto>>
+public class GetCommentForCourseQuery(Guid commentId) : IRequest<CommentDto>
 {
     public Guid Id { get; set; } = commentId;
 }
