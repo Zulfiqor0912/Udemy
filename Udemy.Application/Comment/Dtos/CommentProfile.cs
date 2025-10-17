@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Udemy.Application.Comment.Command.AddComment;
+using Udemy.Application.Comment.Command.UpdateComment;
 using Udemy.Application.Users.Dtos;
 using Udemy.Domain.Entities;
 
@@ -13,5 +14,6 @@ public class CommentProfile : Profile
         CreateMap<CreateCommentCommand, Domain.Entities.Comment>();
         CreateMap<Domain.Entities.Comment, CommentDto>()
             .ForMember(dest => dest.UserDto, opt => opt.MapFrom(src => src.User));
+        CreateMap<UpdateCommentCommand, Domain.Entities.Comment>();
     }
 }

@@ -48,7 +48,7 @@ public class CommentController(IMediator mediator) : ControllerBase
         return Ok();
     }
 
-    [HttpGet("course/{courseId:guid}")]
+    [HttpGet("course/{courseid:guid}")]
     public async Task<IActionResult> GetAllCommentsForCourse(Guid courseid)
     {
         var comments = await mediator.Send(new GetAllCommentForCourseQuery(courseid));
